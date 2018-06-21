@@ -1,0 +1,126 @@
+<!doctype html>               <!--申明html文档-->
+<html>
+<head>
+    <meta charset="utf-8">      <!--字符编码为国际编码-->
+    <meta name="Author" content="18期追梦——不懂就问">    <!--网页创建者-->
+    <meta name="Keywords" content="作业，练习题">         <!--供搜索引擎搜索匹配的关键-->
+    <meta name="description" content="课后练习题作业，熟悉课堂学习操作">  <!--在搜索有结果页面显示的网页描述-->
+    <title>第03次课后作业--拖拽</title>   <!--网页标题-->
+    <!--
+          <link rel="stylesheet" type="text/css" href="css/common.css">
+          <link rel="stylesheet" type="text/css" href="css/index.css">
+          <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+          <link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+          -->
+    <style>
+        body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
+        ul, ol {
+            padding-left: 0;
+            list-style: none;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 0;
+        }
+        em, i {
+            font-style: normal; /*设置字体样式：正常显示（就是不倾斜）*/
+        }
+        strong, b {
+            font-weight: normal; /*设置字体加粗：正常显示（就是不加粗）*/
+        }
+        a {
+            text-decoration: none; /*去掉下划线*/
+        }
+        #drag{
+            width: 800px;
+            margin:100px auto;
+        }
+        #Tdrag h2{
+            text-align: center;
+            color: gray;
+        }
+        #Tdrag div{
+            height: 100px;
+            margin: 10px 0;
+            text-align: center;
+            line-height: 100px;
+            color: aliceblue;
+            font-size: 16px;
+            background-color: #aaa;
+        }
+        #Tdrag button{
+            float: right;
+            width: 80px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            color:gray;
+            font-size: 14px;
+            margin-right: 10px;
+            background-color: greenyellow;
+        }
+        #drag p{
+            padding-left:20px;
+            color: #000;
+            font-size: 16px;
+        }
+
+        #Sdrag img{
+            padding: 0 10px;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="drag">
+       <div id="Tdrag">
+           <h2>外部图片拖拽实例</h2>
+           <div>请将图片拖动到此区域</div>
+           <button>继续选择</button>
+           <button>点击上传</button>
+       </div>
+       <p>已选中<span>0</span>张图片，共<span>0</span>KB</p>
+        <div id="Sdrag"></div>
+    </div>
+<script>
+    let tdrag = document.querySelector("#Tdrag div"),
+        sdrag = document.getElementById("Sdrag"),
+        doc = document.getElementsByTagName("body")[0];
+
+        console.log(tdrag);
+        doc.ondragover = function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        doc.ondrag = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        }
+        tdrag.ondragover = function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        tdrag.ondrop = function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            let dragFile = e.dataTransfer.files[0];
+            let file = new FileReader();
+            file.readAsDataURL(dragFile);
+            file.onload = function () {
+                let img = new Image();
+                img.src = this.result;
+                img.width = 150;
+                img.onload = function () {
+                    sdrag.appendChild(img)
+                }
+            }
+        }
+  
+</script>
+</body>
+</html>
